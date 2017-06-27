@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/books")
 public class BookController {
@@ -16,8 +18,14 @@ public class BookController {
     private BookRepository bookRepository;
 
     @RequestMapping("/list")
-    public String listBooks(Model model){
+    public String listBooks(Model model, Principal principal){
         model.addAttribute("books", bookRepository.findAll());
+        /*if(principal == null) {
+            model.addAttribute("check", "true");
+        }
+        else{
+            model.addAttribute("check", "false");
+        }*/
         return "listbooks";
     }
     @GetMapping("/add")
